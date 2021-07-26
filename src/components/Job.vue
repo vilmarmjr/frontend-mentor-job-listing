@@ -1,37 +1,44 @@
 <template>
   <div class="job card">
     <div class="job__main">
-      <img class="job__logo" src="@/assets/images/insure.svg" />
+      <img class="job__logo" :src="logo" :alt="job.company" />
       <div class="job__details">
         <div class="job__company">
-          <span class="job__company-name">Photosnap</span>
+          <span class="job__company-name">{{ job.company }}</span>
           <div class="job__highlights">
-            <span class="job__highlight">NEW!</span>
-            <span class="job__highlight job__highlight--dark">FEATURED</span>
+            <span class="job__highlight" v-if="job.new">NEW!</span>
+            <span class="job__highlight job__highlight--dark" v-if="job.featured">FEATURED</span>
           </div>
         </div>
-        <h1 class="job__position">Senior Frontend Developer</h1>
-        <span class="job__information">1d ago · Full Time · USA Only</span>
+        <h1 class="job__position">{{ job.position }}</h1>
+        <span class="job__information">{{ job.postedAt }} · {{ job.contract }} · {{ job.location }}</span>
       </div>
     </div>
     <hr class="job__hr" />
-    <div class="job__languages">
-      <span class="job__language">Frontend</span>
-      <span class="job__language">Senior</span>
-      <span class="job__language">HTML</span>
-      <span class="job__language">CSS</span>
-      <span class="job__language">JavaScript</span>
+    <div class="job__tags">
+      <span class="job__tag">{{ job.role }}</span>
+      <span class="job__tag">{{ job.level }}</span>
+      <span class="job__tag" v-for="language in job.languages" :key="language">{{ language }}</span>
+      <span class="job__tag" v-for="tool in job.tools" :key="tool">{{ tool }}</span>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import { Job } from '../models/Job';
 export default defineComponent({
   name: 'Job',
   props: {
-    job: Object as () => Job
+    job: {
+      type: Object as PropType<Job>,
+      required: true
+    }
+  },
+  data() {
+    return {
+      logo: require(`@/assets/images/${this.job.logo}`)
+    };
   }
 });
 </script>
@@ -128,7 +135,7 @@ export default defineComponent({
     }
   }
 
-  &__languages {
+  &__tags {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -138,7 +145,7 @@ export default defineComponent({
     }
   }
 
-  &__language {
+  &__tag {
     font-size: 1.2rem;
     font-weight: 700;
     padding: 0.8rem 0.6rem 0.6rem 0.6rem;

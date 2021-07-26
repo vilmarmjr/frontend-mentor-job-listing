@@ -2,10 +2,7 @@
   <div class="home">
     <header class="home__header"></header>
     <main class="home__content">
-      <Job class="home__job" />
-      <Job class="home__job" />
-      <Job class="home__job" />
-      <Job class="home__job" />
+      <Job class="home__job" v-for="job in jobs" :key="job.id" :job="job" />
     </main>
   </div>
 </template>
@@ -13,9 +10,14 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import Job from './Job.vue';
+import jobs from '../data/jobs.json';
+
 export default defineComponent({
   name: 'Home',
-  components: { Job }
+  components: { Job },
+  data: () => ({
+    jobs
+  })
 });
 </script>
 
