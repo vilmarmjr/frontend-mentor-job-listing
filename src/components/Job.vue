@@ -1,15 +1,19 @@
 <template>
   <div class="job card">
-    <img class="job__floating-logo" src="@/assets/images/insure.svg" />
-    <div class="job__company">
-      <span class="job__company-name">Photosnap</span>
-      <div class="job__highlights">
-        <span class="job__highlight">NEW!</span>
-        <span class="job__highlight job__highlight--dark">FEATURED</span>
+    <div class="job__main">
+      <img class="job__logo" src="@/assets/images/insure.svg" />
+      <div class="job__details">
+        <div class="job__company">
+          <span class="job__company-name">Photosnap</span>
+          <div class="job__highlights">
+            <span class="job__highlight">NEW!</span>
+            <span class="job__highlight job__highlight--dark">FEATURED</span>
+          </div>
+        </div>
+        <h1 class="job__position">Senior Frontend Developer</h1>
+        <span class="job__information">1d ago · Full Time · USA Only</span>
       </div>
     </div>
-    <h1 class="job__position">Senior Frontend Developer</h1>
-    <span class="job__information">1d ago · Full Time · USA Only</span>
     <hr class="job__hr" />
     <div class="job__languages">
       <span class="job__language">Frontend</span>
@@ -37,12 +41,27 @@ export default defineComponent({
 
 .job {
   display: grid;
-  grid-template-rows: 1fr;
   gap: 1rem;
   padding: 3.5rem 1.5rem;
   position: relative;
 
-  &__floating-logo {
+  @include gt-xs {
+    grid-template-columns: 1fr 1fr;
+    padding: 3.5rem;
+  }
+
+  &__main {
+    display: flex;
+    align-items: center;
+  }
+
+  &__details {
+    display: grid;
+    grid-template-rows: 1fr;
+    gap: 1rem;
+  }
+
+  &__logo {
     position: absolute;
     height: 4.5rem;
     width: 4.5rem;
@@ -51,7 +70,11 @@ export default defineComponent({
     transform: translateY(-50%);
 
     @include gt-xs {
-      display: none;
+      height: 7rem;
+      width: 7rem;
+      position: static;
+      transform: none;
+      margin-right: 2rem;
     }
   }
 
@@ -107,20 +130,34 @@ export default defineComponent({
 
   &__languages {
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
+
+    @include gt-xs {
+      justify-content: flex-end;
+    }
   }
 
   &__language {
     font-size: 1.2rem;
     font-weight: 700;
-    padding: 0.6rem 0.6rem 0.4rem 0.6rem;
+    padding: 0.8rem 0.6rem 0.6rem 0.6rem;
     color: var(--primary);
     background: var(--neutral-300);
     border-radius: 0.4rem;
     margin-top: 0.5rem;
 
+    @include gt-xs {
+      margin-top: 0;
+      margin-left: 1rem;
+    }
+
     &:not(:last-child) {
       margin-right: 1rem;
+
+      @include gt-xs {
+        margin-right: 0;
+      }
     }
   }
 }
