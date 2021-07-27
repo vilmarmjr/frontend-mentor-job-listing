@@ -153,6 +153,12 @@ export default defineComponent({
     background: var(--neutral-300);
     border-radius: 0.4rem;
     margin-top: 0.5rem;
+    cursor: pointer;
+
+    &:hover {
+      background: var(--primary);
+      color: #fff;
+    }
 
     @include gt-xs {
       margin-top: 0;
