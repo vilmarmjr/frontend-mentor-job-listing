@@ -16,10 +16,10 @@
     </div>
     <hr class="job__hr" />
     <div class="job__tags">
-      <span class="job__tag">{{ job.role }}</span>
-      <span class="job__tag">{{ job.level }}</span>
-      <span class="job__tag" v-for="language in job.languages" :key="language">{{ language }}</span>
-      <span class="job__tag" v-for="tool in job.tools" :key="tool">{{ tool }}</span>
+      <span class="job__tag" v-on:click="() => onTagClick(job.role)">{{ job.role }}</span>
+      <span class="job__tag" v-on:click="() => onTagClick(job.level)">{{ job.level }}</span>
+      <span class="job__tag" v-on:click="() => onTagClick(language)" v-for="language in job.languages" :key="language">{{ language }}</span>
+      <span class="job__tag" v-on:click="() => onTagClick(tool)" v-for="tool in job.tools" :key="tool">{{ tool }}</span>
     </div>
   </div>
 </template>
@@ -33,6 +33,11 @@ export default defineComponent({
     job: {
       type: Object as PropType<Job>,
       required: true
+    }
+  },
+  methods: {
+    onTagClick(value: string): void {
+      this.$emit('tag-click', value);
     }
   },
   data() {

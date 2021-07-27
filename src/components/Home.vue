@@ -1,8 +1,9 @@
 <template>
   <div class="home">
     <header class="home__header"></header>
+    <Filters />
     <main class="home__content">
-      <Job class="home__job" v-for="job in jobs" :key="job.id" :job="job" />
+      <Job class="home__job" v-for="job in jobs" :key="job.id" :job="job" v-on:tag-click="onTagClick" />
     </main>
   </div>
 </template>
@@ -10,15 +11,42 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import Job from './Job.vue';
-import jobs from '../data/jobs.json';
+import { Job as JobModel } from '../models/job';
+import Filters from './Filters.vue';
+import jobsService from '../services/job';
+
+type ComponentData = {
+  jobs: JobModel[];
+  activeFilters: string[];
+};
 
 export default defineComponent({
   name: 'Home',
-  components: { Job },
-  data() {
+  components: { Job, Filters },
+  data(): ComponentData {
     return {
-      jobs
+      jobs: [],
+      activeFilters: []
     };
+  },
+  mounted() {
+    this.loadJobs();
+  },
+  methods: {
+    onTagClick(value: string): void {
+      const filterAlreadyExists = this.activeFilters.some(f => f === value);
+
+      if (!filterAlreadyExists) {
+        this.activeFilters = [...this.activeFilters, value];
+        this.loadJobs();
+      }
+    },
+
+    loadJobs(): void {
+      jobsService.getJobs(this.activeFilters).then(jobs => {
+        this.jobs = jobs;
+      });
+    }
   }
 });
 </script>
