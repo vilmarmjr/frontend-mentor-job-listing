@@ -15,9 +15,11 @@ import jobs from '../data/jobs.json';
 export default defineComponent({
   name: 'Home',
   components: { Job },
-  data: () => ({
-    jobs
-  })
+  data() {
+    return {
+      jobs
+    };
+  }
 });
 </script>
 
