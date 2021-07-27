@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { Job } from '../models/Job';
+import { Job } from '../models/job';
 export default defineComponent({
   name: 'Job',
   props: {
