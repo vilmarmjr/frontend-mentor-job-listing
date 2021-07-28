@@ -1,8 +1,14 @@
 <template>
   <div class="home">
     <header class="home__header"></header>
-    <Filters />
     <main class="home__content">
+      <Filters
+        class="home__job"
+        v-if="activeFilters.length"
+        v-on:remove="onFilterRemove"
+        v-on:clear="onFiltersClear"
+        :activeFilters="activeFilters"
+      />
       <Job class="home__job" v-for="job in jobs" :key="job.id" :job="job" v-on:tag-click="onTagClick" />
     </main>
   </div>
@@ -37,9 +43,19 @@ export default defineComponent({
       const filterAlreadyExists = this.activeFilters.some(f => f === value);
 
       if (!filterAlreadyExists) {
-        this.activeFilters = [...this.activeFilters, value];
+        this.activeFilters = [value, ...this.activeFilters];
         this.loadJobs();
       }
+    },
+
+    onFiltersClear(): void {
+      this.activeFilters = [];
+      this.loadJobs();
+    },
+
+    onFilterRemove(filter: string): void {
+      this.activeFilters = this.activeFilters.filter(f => f !== filter);
+      this.loadJobs();
     },
 
     loadJobs(): void {
