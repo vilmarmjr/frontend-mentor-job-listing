@@ -1,5 +1,5 @@
 <template>
-  <div class="job card">
+  <div class="job card" v-bind:class="job.featured ? 'job--featured' : ''">
     <div class="job__main">
       <img class="job__logo" :src="logo" :alt="job.company" />
       <div class="job__details">
@@ -7,7 +7,7 @@
           <span class="job__company-name">{{ job.company }}</span>
           <div class="job__highlights">
             <span class="job__highlight" v-if="job.new">NEW!</span>
-            <span class="job__highlight job__highlight--dark" v-if="job.featured">FEATURED</span>
+            <span class="job__highlight job__highlight--featured" v-if="job.featured">FEATURED</span>
           </div>
         </div>
         <h1 class="job__position">{{ job.position }}</h1>
@@ -62,6 +62,10 @@ export default defineComponent({
     padding: 3.5rem;
   }
 
+  &--featured {
+    border-left: 4px solid var(--primary);
+  }
+
   &__main {
     display: flex;
     align-items: center;
@@ -114,7 +118,7 @@ export default defineComponent({
     color: #fff;
     border-radius: 1.2rem;
 
-    &--dark {
+    &--featured {
       background: var(--neutral-500);
     }
   }
