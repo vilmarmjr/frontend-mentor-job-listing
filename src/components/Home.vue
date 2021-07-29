@@ -2,14 +2,16 @@
   <div class="home">
     <header class="home__header"></header>
     <main class="home__content">
-      <Filters
-        class="home__job"
-        v-if="activeFilters.length"
-        v-on:remove="onFilterRemove"
-        v-on:clear="onFiltersClear"
-        :activeFilters="activeFilters"
-      />
-      <Job class="home__job" v-for="job in jobs" :key="job.id" :job="job" v-on:tag-click="onTagClick" />
+      <div class="home__container" v-bind:class="activeFilters.length ? 'home__container--overlap' : ''">
+        <Filters
+          class="home__job"
+          v-if="activeFilters.length"
+          v-on:remove="onFilterRemove"
+          v-on:clear="onFiltersClear"
+          :activeFilters="activeFilters"
+        />
+        <Job class="home__job" v-for="job in jobs" :key="job.id" :job="job" v-on:tag-click="onTagClick" />
+      </div>
     </main>
   </div>
 </template>
@@ -73,7 +75,7 @@ export default defineComponent({
 .home {
   height: 100vh;
   display: grid;
-  grid-template-rows: 20rem 1fr;
+  grid-template-rows: 17rem 1fr;
 
   @include gt-xs {
     grid-template-rows: 12rem 1fr;
@@ -95,7 +97,17 @@ export default defineComponent({
     background: var(--neutral-300);
 
     @include gt-xs {
-      padding: 3rem 5rem;
+      padding: 5rem;
+    }
+  }
+
+  &__container {
+    &--overlap {
+      transform: translateY(-9.5rem);
+
+      @include gt-xs {
+        transform: translateY(-9rem);
+      }
     }
   }
 
