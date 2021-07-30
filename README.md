@@ -28,7 +28,7 @@ Users should be able to:
 ### Links
 
 - [Solution URL](https://your-solution-url.com)
-- [Live site URL](https://your-live-site-url.com)
+- [Live site URL](https://juniormendes96.github.io/frontend-mentor-job-listing)
 
 ## My process
 
