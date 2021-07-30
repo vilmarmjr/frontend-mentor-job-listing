@@ -9,14 +9,9 @@ export default {
       return Promise.resolve(jobs);
     }
 
-    const filteredJobs = jobs.filter(job => {
-      return (
-        filters.includes(job.role) ||
-        filters.includes(job.level) ||
-        job.languages.some(language => filters.includes(language)) ||
-        job.tools.some(tool => filters.includes(tool))
-      );
-    });
+    const filteredJobs = jobs
+      .map(job => ({ ...job, tags: [job.role, job.level, ...job.languages, ...job.tools] }))
+      .filter(job => filters.every(filter => job.tags.includes(filter)));
 
     return Promise.resolve(filteredJobs);
   }
