@@ -11,7 +11,6 @@
             v-on:clear="onFiltersClear"
             :activeFilters="activeFilters"
           />
-
           <Job class="home__job" v-for="job in jobs" :key="job.id" :job="job" v-on:tag-click="onTagClick" />
         </transition-group>
       </div>
@@ -116,6 +115,9 @@ export default defineComponent({
 
   &__job {
     margin-bottom: 4rem;
+    max-width: 1600px;
+    margin-right: auto;
+    margin-left: auto;
   }
 }
 </style>
