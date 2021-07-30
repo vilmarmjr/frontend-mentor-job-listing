@@ -3,14 +3,17 @@
     <header class="home__header"></header>
     <main class="home__content">
       <div class="home__container" v-bind:class="activeFilters.length ? 'home__container--overlap' : ''">
-        <Filters
-          class="home__job"
-          v-if="activeFilters.length"
-          v-on:remove="onFilterRemove"
-          v-on:clear="onFiltersClear"
-          :activeFilters="activeFilters"
-        />
-        <Job class="home__job" v-for="job in jobs" :key="job.id" :job="job" v-on:tag-click="onTagClick" />
+        <transition-group name="flip-list">
+          <Filters
+            class="home__job"
+            v-if="activeFilters.length"
+            v-on:remove="onFilterRemove"
+            v-on:clear="onFiltersClear"
+            :activeFilters="activeFilters"
+          />
+
+          <Job class="home__job" v-for="job in jobs" :key="job.id" :job="job" v-on:tag-click="onTagClick" />
+        </transition-group>
       </div>
     </main>
   </div>
