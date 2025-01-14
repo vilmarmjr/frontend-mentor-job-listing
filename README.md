@@ -28,7 +28,7 @@ Users should be able to:
 ### Links
 
 - [Solution URL](https://www.frontendmentor.io/solutions/responsive-app-using-vuejs-and-bem-notation-Dy1CcQc4x)
-- [Live site URL](https://juniormendes96.github.io/frontend-mentor-job-listing)
+- [Live site URL](https://vilmarmjr.github.io/frontend-mentor-job-listing)
 
 ## My process
 
